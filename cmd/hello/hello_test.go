@@ -9,8 +9,6 @@ var output string
 func BenchmarkHelloToWorldAlg1(b *testing.B) {
 	var result string
 
-	b.ResetTimer()
-
 	for n := 0; n < b.N; n++ {
 		result = HelloToWorld(input)
 	}
