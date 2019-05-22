@@ -7,7 +7,7 @@ import (
 	"runtime/pprof"
 )
 
-var s []string // s is used in order to ensure that GC won't clean the slice created by leakyFunction
+var s []string // s is used in order to ensure that GC won't clean the slice created by eatMemory
 
 func eatMemory() []string {
 	s := make([]string, 3)
