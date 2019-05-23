@@ -18,7 +18,11 @@ var (
 
 const (
 	maxLen = 1000000
-	profilerAddr   = "localhost:6060"
+	profilerAddr   = "localhost:6060" // in order to access remotely to a production end point you will probably
+	                                  // need to create an ssh tunnel. For example:
+	                                  // ssh -L 6060:localhost:6060 <your-host-name>
+	                                  // which will allow you to execute the pprof tool. For example:
+	                                  // go tool pprof -http :1234 http://localhost:6060/debug/pprof/heap
 )
 
 func main() {
