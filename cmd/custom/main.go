@@ -1,3 +1,4 @@
+// A sample code for writing a custom profile for tracking a custom resource (in this case creation/close of MockFile instances)
 package main
 
 import (
@@ -15,8 +16,6 @@ var profilerAddr   = "localhost:6060" // in order to access remotely to a produc
                                       // go tool pprof -http :1234 http://localhost:6060/debug/pprof/heap
                                       // OR:
                                       // go tool pprof http://localhost:6060/debug/pprof/heap
-
-// A sample code for writing a custom profile for tracking a custom resource (in this case creation/close of MockFile instances)
 
 // MockFile is a mock file implementation (in a real program this code should be in a speparated package)
 var openMockFileProfile = pprof.NewProfile("mockfile.Open")
