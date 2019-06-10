@@ -2,6 +2,7 @@
 Micro level profiling example of profiling via a benchmark.
 
 hello.go is a simple program and hello_test.go is a benchmark for the HelloToWorld function which isn't efficient in term of memory usage.
+You may want try the commented implementation which is more efficient (cpu, memory).  
 
 Compile:
 
