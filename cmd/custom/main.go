@@ -4,20 +4,20 @@ package main
 import (
 	"fmt"
 	"net/http"
-	"runtime/pprof"
 	_ "net/http/pprof" // will install http handlers on the default router of /net/http (http.DefaultServeMux)
+	"runtime/pprof"
 	"time"
 )
 
-var profilerAddr   = "localhost:6060" // in order to access remotely to a production end point you will probably
-                                      // need to create an ssh tunnel. For example:
-                                      // ssh -L 6060:localhost:6060 <your-host-name>
-                                      // which will allow you to execute the pprof tool. For example:
-                                      // go tool pprof -http :1234 http://localhost:6060/debug/pprof/heap
-                                      // OR:
-                                      // go tool pprof http://localhost:6060/debug/pprof/heap
+var profilerAddr = "localhost:6062" // in order to access remotely to a production end point you will probably
+// need to create an ssh tunnel. For example:
+// ssh -L 6062:localhost:6062 <your-host-name>
+// which will allow you to execute the pprof tool. For example:
+// go tool pprof -http :1234 http://localhost:6062/debug/pprof/heap
+// OR:
+// go tool pprof http://localhost:6062/debug/pprof/heap
 
-// MockFile is a mock file implementation (in a real program this code should be in a speparated package)
+// MockFile is a mock file implementation (in a real program this code should be in a separated package)
 var openMockFileProfile = pprof.NewProfile("mockfile.Open")
 
 type MockFile struct {
@@ -25,7 +25,7 @@ type MockFile struct {
 }
 
 func Open(path string) *MockFile {
-	mockFile := &MockFile{ path }
+	mockFile := &MockFile{path}
 
 	openMockFileProfile.Add(mockFile, 2) // add the current execution stack to the profile
 	return mockFile
@@ -44,14 +44,14 @@ func main() {
 	}()
 
 	for i := 0; i < 1000; i++ {
-		path := fmt.Sprintf("/filename-%d", i)
-		go func() {
+		go func(i int) {
+			path := fmt.Sprintf("/filename-%d", i)
 			b := Open(path)
 			defer b.Close()
 
 			// Simulate some work with sleep in order to give us some time to inspect the 'mockfile.Open' profile
 			time.Sleep(2 * time.Minute)
-		}()
+		}(i)
 	}
 
 	// usually the main goroutine is long lived ...
@@ -60,5 +60,3 @@ func main() {
 
 	c <- struct{}{} // blocks forever
 }
-
-
