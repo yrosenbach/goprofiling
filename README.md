@@ -1,2 +1,2 @@
 # goprofiling
-profiling examples for Jun 2019 Go Meetup
+Profiling examples for Jun 2019 Go Israel Meetup
